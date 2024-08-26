@@ -1,0 +1,40 @@
+<%- include("partials/header.ejs") %>
+
+<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="left__col">
+                <% if (blogs.length ===0) { %>
+                    <h2 class="blog__title emptyBLog">No Blogs To View Yet 🙁</h2>
+               <% } else { %>
+                  <% blogs.forEach(blog=>{ %>
+                    <h2 class="blog__title"><%= blog.title %></h2>
+                    <p class="date"> (<%= blog.date %> -- <%= blog.hours %>:<%= blog.minutes %>)</p>
+                    <p class="blog__content"><%= blog.content %></p>
+                    <div class="blog__btn" id="test">
+                        <a href="/edit/<%= blog.id %>"><button class="btn">Edit</button></a>
+                        <button id="deleteBtn" class="btn danger">Delete</button>
+                            <div class="deleteBox">
+                                <p>Are You Sure To Delete This Blog?</p>
+                                <a href="/delete/<%= blog.id %>"><button class="btn danger">Yes</button></a>
+                                <button id="noDelete" class="btn cancel">No</button>
+                            </div>
+                    </div>
+                    <hr>
+               <% }) %>
+                <% }%>
+              
+            </div>
+            <div class="right__col">
+                <h2 class="create__header">Create New Blog</h2>
+                <form action="/create" method="POST">
+                    <input type="text" id="title" name="title" placeholder="Blog Title" class="form__title" required>
+                    <textarea name="content" id="content" rows="7" placeholder="Blog Content" required></textarea>
+                    <input type="submit" class="btn form__btn" value="Create">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<%- include("partials/footer.ejs") %>
